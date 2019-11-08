@@ -9,7 +9,10 @@ from .forms import WidgetForm
 def home(request):
     widgets = Widget.objects.all()
     w_form = WidgetForm()
-    return render(request, 'index.html', { 'widgets': widgets, 'w_form': w_form })
+    total_quantity = 0
+    for widget in widgets:
+        total_quantity = total_quantity + widget.quantity
+    return render(request, 'index.html', { 'widgets': widgets, 'w_form': w_form, 'total_quantity': total_quantity })
 
 def add_widget(request):
     if request.method == 'POST':
